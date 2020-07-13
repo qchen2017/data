@@ -1,9 +1,7 @@
 
-from generator.Simulator import Simulator
 
 # generate datas
-
-
+print('')
 # acqusition
 
 
@@ -11,7 +9,7 @@ from generator.Simulator import Simulator
 # storage
 
 
-# retrieval
+# query
 
 
 # analysis
