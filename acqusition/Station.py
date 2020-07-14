@@ -14,4 +14,5 @@ class Station(object):
     def collect_station_datas(self):
         for generator in self.generators:
             collector = DataAcqusition(generator)
-            self.datas.append(collector.get_data())
+            collector.get_data()
+            self.datas.append(collector.data)

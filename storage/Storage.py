@@ -3,15 +3,23 @@
 Storage objects - save data to database
 """
 
+import sqlalchemy
+from app.DataBase import Temperature
 
 
 class Storage(object):
-    def __init__(self, station):
+    def __init__(self, db, station):
+        self.db = db
         self.station = station
 
     def save_data(self):
-        for datas in self.station.datas:
-            pass
+        data = self.station.datas[0]
+
+        t = Temperature(data['type'], data['item'], data['time'])
+        print(t.type)
+        print(t.item)
+
+
 
 
 # sqlite test
@@ -24,7 +32,7 @@ if 1 == 11:
 
     # 建表：
     cu.execute(
-        'create table catalog (id integer primary key,pid integer,name varchar(10) UNIQUE)')  # 上面语句创建了一个叫catalog的表，它有一个主键id，一个pid，和一个name，name是不可以重复的。
+        'create table catalog (id integer primary key,pid integer,type varchar(10) UNIQUE)')  # 上面语句创建了一个叫catalog的表，它有一个主键id，一个pid，和一个name，name是不可以重复的。
 
     # 插入数据:
     cu.execute("insert into catalog values(0, 0, 'name1')")
@@ -38,7 +46,7 @@ if 1 == 11:
     # [(0, 0, u'name1'), (1, 0, u'hello')] #如果我们使用cu.fetchone(),则首先返回列表中的第一项,再次使用,则返回第二项,依次下去.
 
     # 修改:
-    cu.execute("update catalog set name='name2' where id = 0")
+    cu.execute("update catalog set type='name2' where id = 0")
 
     cx.commit()  # 注意,修改数据以后提交
 
