@@ -1,11 +1,11 @@
 
 """
-Sensor objects - generate real data
+Sensor objects - generate real data_frame
 """
 
-from generator.DataGenerator import DataGenerator
+from generator.Generator import Generator
 
-class Sensor(DataGenerator):
+class Sensor(Generator):
     def __init__(self, type='sensor', item='item_A', name=''):
         super().__init__(type, item)
 

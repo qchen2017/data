@@ -20,11 +20,11 @@ from qcodes.data.data_array import DataArray
 
 class MatPlot(BasePlot):
     """
-    Plot x/y lines or x/y/z heatmap data. The first trace may be included
+    Plot x/y lines or x/y/z heatmap data_frame. The first trace may be included
     in the constructor, other traces can be added with MatPlot.add()
 
     Args:
-        *args: Sequence of data to plot. Each element will have its own subplot.
+        *args: Sequence of data_frame to plot. Each element will have its own subplot.
             An element can be a single array, or a sequence of arrays. In the
             latter case, all arrays will be plotted in the same subplot.
 
@@ -42,7 +42,7 @@ class MatPlot(BasePlot):
             specifies the index of the matplotlib figure window to use. If None
             then open a new window
 
-        **kwargs: passed along to MatPlot.add() to add the first data trace
+        **kwargs: passed along to MatPlot.add() to add the first data_frame trace
     """
 
     # Maximum default number of subplot columns. Used to determine shape of
@@ -59,7 +59,7 @@ class MatPlot(BasePlot):
 
         self._init_plot(subplots, figsize, num=num)
 
-        # Add data to plot if passed in args, kwargs are passed to all subplots
+        # Add data_frame to plot if passed in args, kwargs are passed to all subplots
         for k, arg in enumerate(args):
             if isinstance(arg, Sequence):
                 # Arg consists of multiple elements, add all to same subplot
@@ -113,7 +113,7 @@ class MatPlot(BasePlot):
         self.subplots = self.subplots.flatten()
 
         for k, subplot in enumerate(self.subplots):
-            # Include `add` method to subplots, making it easier to add data to
+            # Include `add` method to subplots, making it easier to add data_frame to
             # subplots. Note that subplot kwarg is 1-based, to adhere to
             # Matplotlib standards
             subplot.add = partial(self.add, subplot=k+1)
@@ -136,7 +136,7 @@ class MatPlot(BasePlot):
         Args:
             use_offset: Whether or not ticks can have an offset
             **kwargs: with the exceptions given in the notes below
-                (mostly the data!), these are passed directly to
+                (mostly the data_frame!), these are passed directly to
                 the matplotlib plotting routine.
 
         Returns:
@@ -194,7 +194,7 @@ class MatPlot(BasePlot):
                 unit = None
 
             #  find ( more hope to) unit and label from
-            # the data array inside the config
+            # the data_frame array inside the config
             getter = getattr(ax, "get_{}label".format(axletter))
             if axletter in config and not getter():
                 # now if we did not have any kwarg for label or unit
@@ -206,7 +206,7 @@ class MatPlot(BasePlot):
             elif getter():
                 # The axis already has label. Assume that is correct
                 # We should probably check consistent units and error or warn
-                # if not consistent. It's also not at all clear how to handle
+                # if not consistent. It'storage also not at all clear how to handle
                 # labels/names as these will in general not be consistent on
                 # at least one axis
                 return
@@ -241,8 +241,8 @@ class MatPlot(BasePlot):
             config = trace['config']
             plot_object = trace['plot_object']
             if 'z' in config:
-                # pcolormesh doesn't seem to allow editing x and y data, only z
-                # so instead, we'll remove and re-add the data.
+                # pcolormesh doesn't seem to allow editing x and y data_frame, only z
+                # so instead, we'll remove and re-add the data_frame.
                 if plot_object:
                     plot_object.remove()
 
@@ -261,7 +261,7 @@ class MatPlot(BasePlot):
                         plot_object.get_datalim(plot_object.axes.transData))
             else:
                 for axletter in 'xy':
-                    setter = 'set_' + axletter + 'data'
+                    setter = 'set_' + axletter + 'data_frame'
                     if axletter in config:
                         getattr(plot_object, setter)(config[axletter])
 
@@ -272,10 +272,10 @@ class MatPlot(BasePlot):
                     bbox = Bbox.union(bboxes[ax])
                     if np.all(np.isfinite(ax.dataLim)):
                         # should take care of the case of lines + heatmaps
-                        # where there's already a finite dataLim from relim
+                        # where there'storage already a finite dataLim from relim
                         ax.dataLim.set(Bbox.union(ax.dataLim, bbox))
                     else:
-                        # when there's only a heatmap, relim gives inf bounds
+                        # when there'storage only a heatmap, relim gives inf bounds
                         # so just completely overwrite it
                         ax.dataLim = bbox
                 ax.autoscale()
@@ -291,7 +291,7 @@ class MatPlot(BasePlot):
                    zunit=None,
                    **kwargs):
         # NOTE(alexj)stripping out subplot because which subplot we're in is
-        # already described by ax, and it's not a kwarg to matplotlib's ax.plot.
+        # already described by ax, and it'storage not a kwarg to matplotlib'storage ax.plot.
         # But I didn't want to strip it out of kwargs earlier because it should
         # stay part of trace['config'].
         args = [arg for arg in [x, y, fmt] if arg is not None]
@@ -336,7 +336,7 @@ class MatPlot(BasePlot):
                 n_invalid = np.sum(arr.mask)
                 extrapolation_stop = extrapolation_start+step_size*(n_invalid-1)
                 # numpy (1.14) has a deprecation warning related to shared
-                # masks. Let's silence this by making sure that this is
+                # masks. Let'storage silence this by making sure that this is
                 # not shared before modifying the mask
                 arr.unshare_mask()
                 arr[arr.mask] = np.linspace(extrapolation_start,
@@ -365,7 +365,7 @@ class MatPlot(BasePlot):
                          nticks=None,
                          **kwargs):
         # NOTE(alexj)stripping out subplot because which subplot we're in is already
-        # described by ax, and it's not a kwarg to matplotlib's ax.plot. But I
+        # described by ax, and it'storage not a kwarg to matplotlib'storage ax.plot. But I
         # didn't want to strip it out of kwargs earlier because it should stay
         # part of trace['config'].
 
@@ -374,7 +374,7 @@ class MatPlot(BasePlot):
 
         if np.any([np.all(getmask(arg)) for arg in args_masked]):
             # if the z array is masked, don't draw at all
-            # there's nothing to draw, and anyway it throws a warning
+            # there'storage nothing to draw, and anyway it throws a warning
             # pcolormesh does not accept masked x and y axes, so we do not need
             # to check for them.
             return False
@@ -447,7 +447,7 @@ class MatPlot(BasePlot):
     def rescale_axis(self):
         """
         Rescale axis and units for axis that are in standard units
-        i.e. V, s J ... to m μ, m
+        i.e. V, storage J ... to m μ, m
         This scales units defined in BasePlot.standardunits only
         to avoid prefixes on combined or non standard units
         """

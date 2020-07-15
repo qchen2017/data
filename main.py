@@ -1,27 +1,32 @@
 
-from app.DataBase import DataBase
+from database.DataBase import DataBase
 from generator.Simulator import Simulator
 from acqusition.Station import Station
 from storage.Storage import Storage
+from query.Query import Query
+from analysis.Analysis import Analysis
 
 db = DataBase()
 # generate dataset
-generator = Simulator(type='simulator', item='item_A', name='Temperature')
-generator.generate_data_package()
-
 generators = []
-generators.append(generator)
+for i in range(100):
+    generator = Simulator(type='simulator', item='item_A', name='Temperature')
+    generator.generate_data_package()
+    generators.append(generator)
+
 # acqusition
 station = Station(generators)
 station.collect_station_datas()
 # storage
-s = Storage(db, station)
-s.save_data()
+storage = Storage(db, station)
+storage.save_data()
 
 # query
+query = Query(storage.session)
+query.query()
 
-
-# analysis
-
+# Analysis
+analysis = Analysis(query.data_frame)
+analysis.mean()
 
 # display

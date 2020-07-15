@@ -1,10 +1,10 @@
 
 """
-Storage objects - save data to database
+Storage objects - save data_frame to database
 """
 
-import sqlalchemy
-from app.DataBase import Temperature
+from sqlalchemy.orm import sessionmaker
+from database.DataBase import Temperature
 
 
 class Storage(object):
@@ -12,14 +12,20 @@ class Storage(object):
         self.db = db
         self.station = station
 
+        self.session = None
+
     def save_data(self):
-        data = self.station.datas[0]
+        DBsession = sessionmaker(bind=self.db.engine)
+        session = DBsession()
 
-        t = Temperature(data['type'], data['item'], data['time'])
-        print(t.type)
-        print(t.item)
+        t_list = []
+        for data in self.station.datas:
+            t_list.append(Temperature(data['type'], data['item'], data['time'], data['value']))
 
-
+        session.add_all(t_list)
+        session.commit()
+        self.session = session
+        # session.close()
 
 
 # sqlite test

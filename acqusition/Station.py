@@ -3,7 +3,7 @@
 Station objects - collect all the equipment you use to do an experiment.
 """
 
-from acqusition.DataAcqusition import DataAcqusition
+from acqusition.Acqusition import Acqusition
 
 
 class Station(object):
@@ -13,6 +13,6 @@ class Station(object):
 
     def collect_station_datas(self):
         for generator in self.generators:
-            collector = DataAcqusition(generator)
+            collector = Acqusition(generator)
             collector.get_data()
             self.datas.append(collector.data)

@@ -26,14 +26,14 @@ log = logging.getLogger(__name__)
 
 class QtPlot(BasePlot):
     """
-    Plot x/y lines or x/y/z heatmap data. The first trace may be included
+    Plot x/y lines or x/y/z heatmap data_frame. The first trace may be included
     in the constructor, other traces can be added with QtPlot.add().
 
     For information on how ``x/y/z *args`` are handled see ``add()`` in the
      base plotting class.
 
     Args:
-        *args: shortcut to provide the x/y/z data. See BasePlot.add
+        *args: shortcut to provide the x/y/z data_frame. See BasePlot.add
 
         figsize: (width, height) tuple in pixels to pass to GraphicsWindow
             default (1000, 600)
@@ -50,14 +50,14 @@ class QtPlot(BasePlot):
             0 is all the way to the top and
             1 is all the way to the bottom.
             default None let qt decide.
-        **kwargs: passed along to QtPlot.add() to add the first data trace
+        **kwargs: passed along to QtPlot.add() to add the first data_frame trace
     """
     proc = None
     rpg = None
     # we store references to plots to keep the garbage collections from
     # destroying the windows. To keep memory consumption within bounds we
     # limit this to an arbitrary number of plots here using a deque
-    # The issue is that even when closing a window it's difficult to
+    # The issue is that even when closing a window it'storage difficult to
     # remove it from the list. This could potentially be done with a
     # close event on win but this is difficult with remote proxy process
     # as the list of plots lives in the main process and the plot locally
@@ -329,7 +329,7 @@ class QtPlot(BasePlot):
         pyqtgraph seems to only support uniform pixels in image plots.
 
         for a given setpoint array, extract the linear transform it implies
-        if the setpoint data is *not* linear (or close to it), or if it's not
+        if the setpoint data_frame is *not* linear (or close to it), or if it'storage not
         uniform in any nested dimensions, issue a warning and return the
         default transform of 0, 1
 
@@ -338,7 +338,7 @@ class QtPlot(BasePlot):
         in pyqtgraph:
         translate means how many pixels to shift the image, away
             from the bottom or left edge being at zero on the axis
-        scale means the data delta
+        scale means the data_frame delta
 
         revisit is True if we just don't have enough info to scale yet,
         but we might later.
@@ -347,12 +347,12 @@ class QtPlot(BasePlot):
         if array is None:
             return TransformState(0, 1, True)
 
-        # do we have enough confidence in the setpoint data we've seen
-        # so far that we don't have to repeat this as more data comes in?
+        # do we have enough confidence in the setpoint data_frame we've seen
+        # so far that we don't have to repeat this as more data_frame comes in?
         revisit = False
 
-        # somewhat arbitrary - if the first 20% of the data or at least
-        # 10 rows is uniform, assume it's uniform thereafter
+        # somewhat arbitrary - if the first 20% of the data_frame or at least
+        # 10 rows is uniform, assume it'storage uniform thereafter
         MINROWS = 10
         MINFRAC = 0.2
 
@@ -443,7 +443,7 @@ class QtPlot(BasePlot):
                 unit = None
 
             #  find ( more hope to) unit and label from
-            # the data array inside the config
+            # the data_frame array inside the config
             if axletter in config and not ax._qcodes_label:
                 # now if we did not have any kwark gor label or unit
                 # fallback to the data_array
@@ -557,7 +557,7 @@ class QtPlot(BasePlot):
     def fixUnitScaling(self, startranges: Optional[Dict[str, Dict[str, Union[float,int]]]]=None):
         """
         Disable SI rescaling if units are not standard units and limit
-        ranges to data if known.
+        ranges to data_frame if known.
 
         Args:
 

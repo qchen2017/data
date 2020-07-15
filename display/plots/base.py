@@ -12,10 +12,10 @@ class BasePlot:
         interval (int): period in seconds between update checks
          default 1
 
-        data_keys (str): sequence of keys in trace config can contain data
+        data_keys (str): sequence of keys in trace config can contain data_frame
             that we should look for updates in.
             default 'xyz' (treated as a sequence) but add more if
-            for example marker size or color can contain data
+            for example marker size or color can contain data_frame
     """
 
     def __init__(self, interval=1, data_keys='xyz'):
@@ -24,7 +24,7 @@ class BasePlot:
         self.traces = []
         self.data_updaters = set()
         self.interval = interval
-        self.standardunits = ['V', 's', 'J', 'W', 'm', 'eV', 'A', 'K', 'g',
+        self.standardunits = ['V', 'storage', 'J', 'W', 'm', 'eV', 'A', 'K', 'g',
                               'Hz', 'rad', 'T', 'H', 'F', 'Pa', 'C', 'Ω', 'Ohm',
                               'S']
 
@@ -47,12 +47,12 @@ class BasePlot:
         Clear all content and add new trace.
 
         Args:
-            args: optional way to provide x/y/z data without keywords
+            args: optional way to provide x/y/z data_frame without keywords
                 If the last one is 1D, may be `y` or `x`, `y`
                 If the last one is 2D, may be `z` or `x`, `y`, `z`
 
-            updater: a callable (with no args) that updates the data in this trace
-                if omitted, we will look for DataSets referenced in this data, and
+            updater: a callable (with no args) that updates the data_frame in this trace
+                if omitted, we will look for DataSets referenced in this data_frame, and
                 call their sync methods.
 
             **kwargs: passed on to self.add()
@@ -65,12 +65,12 @@ class BasePlot:
         Add one trace to this plot.
 
         Args:
-            args: optional way to provide x/y/z data without keywords
+            args: optional way to provide x/y/z data_frame without keywords
                 If the last one is 1D, may be `y` or `x`, `y`
                 If the last one is 2D, may be `z` or `x`, `y`, `z`
 
-            updater: a callable (with no args) that updates the data in this trace
-                if omitted, we will look for DataSets referenced in this data, and
+            updater: a callable (with no args) that updates the data_frame in this trace
+                if omitted, we will look for DataSets referenced in this data_frame, and
                 call their sync methods.
 
             kwargs: after inserting info found in args and possibly in set_arrays
@@ -116,8 +116,8 @@ class BasePlot:
         Add an updater to the plot.
 
         Args:
-            updater (Callable): callable (with no args) that updates the data in this trace
-                if omitted, we will look for DataSets referenced in this data, and
+            updater (Callable): callable (with no args) that updates the data_frame in this trace
+                if omitted, we will look for DataSets referenced in this data_frame, and
                 call their sync methods.
             plot_config (dict): this is a dictionary that gets populated inside
                 add() via expand_trace().
@@ -133,7 +133,7 @@ class BasePlot:
                     if data_array.data_set is not None:
                         self.data_updaters.add(data_array.data_set.sync)
 
-        # If previous data on this plot became static, perhaps because
+        # If previous data_frame on this plot became static, perhaps because
         # its measurement loop finished, the updater may have been halted.
         # If we have new update functions, re-activate the updater
         # by reinstating its update interval
@@ -149,7 +149,7 @@ class BasePlot:
         like we will take the first title we find from any trace... otherwise, if no
         trace specifies a title, then we combine whatever dataset locations we find.
 
-        Note: (alexj): yeah, that's awkward, isn't it, and it looks like a weird
+        Note: (alexj): yeah, that'storage awkward, isn't it, and it looks like a weird
         implementation, feel free to change it 👼
 
         Returns:
@@ -175,7 +175,7 @@ class BasePlot:
         Look for a label in data_array falling back on type.
 
         Args:
-            data_array (DataArray): data array to get label from
+            data_array (DataArray): data_frame array to get label from
 
         Returns:
             str: label or type of the data_array
@@ -190,38 +190,38 @@ class BasePlot:
     @staticmethod
     def expand_trace(args, kwargs):
         """
-        Complete the x, y (and possibly z) data definition for a trace.
+        Complete the x, y (and possibly z) data_frame definition for a trace.
 
-        Also modifies kwargs in place so that all the data needed to fully
+        Also modifies kwargs in place so that all the data_frame needed to fully
         specify the trace is present (ie either x and y or x and y and z)
 
         Both ``__init__`` (for the first trace) and the ``add`` method support
-        multiple ways to specify the data in the trace:
+        multiple ways to specify the data_frame in the trace:
 
         As ``*args``:
-            - ``add(y)`` or ``add(z)`` specify just the main 1D or 2D data, with
+            - ``add(y)`` or ``add(z)`` specify just the main 1D or 2D data_frame, with
               the setpoint axis or axes implied.
-            - ``add(x, y)`` or ``add(x, y, z)`` specify all axes of the data.
+            - ``add(x, y)`` or ``add(x, y, z)`` specify all axes of the data_frame.
         And as ``**kwargs``:
-            - ``add(x=x, y=y, z=z)`` you specify exactly the data you want on
+            - ``add(x=x, y=y, z=z)`` you specify exactly the data_frame you want on
               each axis. Any but the last (y or z) can be omitted, which allows
               for all of the same forms as with ``*args``, plus x and z or y and
-              z, with just one axis implied from the setpoints of the z data.
+              z, with just one axis implied from the setpoints of the z data_frame.
 
         This method takes any of those forms and converts them into a complete
-        set of kwargs, containing all of the explicit or implied data to be used
+        set of kwargs, containing all of the explicit or implied data_frame to be used
         in plotting this trace.
 
         Args:
             args (Tuple[DataArray]): positional args, as passed to either
                 ``__init__`` or ``add``
             kwargs (Dict(DataArray]): keyword args, as passed to either
-                ``__init__`` or ``add``. kwargs may contain non-data items in
+                ``__init__`` or ``add``. kwargs may contain non-data_frame items in
                 keys other than x, y, and z.
 
         Raises:
-           ValueError: if the shape of the data does not match that of args
-           ValueError: if the data is provided twice
+           ValueError: if the shape of the data_frame does not match that of args
+           ValueError: if the data_frame is provided twice
         """
         # TODO(giulioungaretti): replace with an explicit version:
         # return the new kwargs  instead of modifying in place
@@ -237,14 +237,14 @@ class BasePlot:
                 ndim = 1
 
             if len(args) not in (1, len(axletters)):
-                raise ValueError('{}D data needs 1 or {} unnamed args'.format(
+                raise ValueError('{}D data_frame needs 1 or {} unnamed args'.format(
                     ndim, len(axletters)))
 
             arg_axletters = axletters[-len(args):]
 
             for arg, arg_axletters in zip(args, arg_axletters):
                 if arg_axletters in kwargs:
-                    raise ValueError(arg_axletters + ' data provided twice')
+                    raise ValueError(arg_axletters + ' data_frame provided twice')
                 kwargs[arg_axletters] = arg
 
         # reset axletters, we may or may not have found them above
@@ -264,7 +264,7 @@ class BasePlot:
 
     def update(self):
         """
-        Update the data in this plot, using the updaters given with
+        Update the data_frame in this plot, using the updaters given with
         MatPlot.add() or in the included DataSets, then include this in
         the plot.
 
