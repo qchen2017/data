@@ -9,7 +9,7 @@ from analysis.Analysis import Analysis
 db = DataBase()
 # generate dataset
 generators = []
-for i in range(100):
+for i in range(2):
     generator = Simulator(type='simulator', item='item_A', name='Temperature')
     generator.generate_data_package()
     generators.append(generator)
@@ -27,6 +27,6 @@ query.query()
 
 # Analysis
 analysis = Analysis(query.data_frame)
-analysis.mean()
+analysis.analysis()
 
 # display

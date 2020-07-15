@@ -10,9 +10,9 @@ class Acqusition(object):
         self.data = None
 
     def get_data(self):
-        if self.generator.data_frame['type'] == 'simulator':
-            self.data = self.generator.data_frame
-        elif self.generator.data_frame['type'] == 'sensor': #根据通讯协议解析
+        if self.generator.data['type'] == 'simulator':
+            self.data = self.generator.data
+        elif self.generator.data['type'] == 'sensor': #根据通讯协议解析
             pass
 
 
