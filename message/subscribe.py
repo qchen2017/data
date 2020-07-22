@@ -21,9 +21,11 @@ if __name__ == '__main__':
     client.on_connect = on_connect
     client.on_message = on_message
 
-    HOST = "127.0.0.1"
+    # HOST = "127.0.0.1"
+    HOST = "localhost"
+    PORT = 1883
 
-    client.connect(HOST, 61613, 60)
+    client.connect(HOST, PORT, 60)
     #client.loop_forever()
 
     user = input("请输入名称:")
