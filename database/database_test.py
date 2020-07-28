@@ -88,7 +88,10 @@ print(cursorObj.fetchall())
 #     con.commit()
 #
 # sql_fetch(con)
-# cursorObj.execute('drop table if exists projects') #删除表格
+# cursorObj.execute('drop table if exists projects') #删除表格\
+
+
+# Test9
 
 
 

@@ -14,7 +14,7 @@ class Storage(object):
 
         self.session = None
 
-    def save_data(self):
+    def storage(self):
         DBsession = sessionmaker(bind=self.db.engine)
         session = DBsession()
 

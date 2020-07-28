@@ -11,7 +11,7 @@ db = DataBase()
 generators = []
 for i in range(2):
     generator = Simulator(type='simulator', item='item_A', name='Temperature')
-    generator.generate_data_package()
+    generator.encode()
     generators.append(generator)
 
 # acqusition
@@ -19,7 +19,7 @@ station = Station(generators)
 station.collect_station_datas()
 # storage
 storage = Storage(db, station)
-storage.save_data()
+storage.storage()
 
 # query
 query = Query(storage.session)

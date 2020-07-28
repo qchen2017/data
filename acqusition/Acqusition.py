@@ -9,7 +9,7 @@ class Acqusition(object):
         self.generator = generator
         self.data = None
 
-    def get_data(self):
+    def decode(self):
         if self.generator.data['type'] == 'simulator':
             self.data = self.generator.data
         elif self.generator.data['type'] == 'sensor': #根据通讯协议解析

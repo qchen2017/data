@@ -1,6 +1,6 @@
 
 
-class Variable(object):  # each path_curve corresponds to a PathData
+class Parameter(object):  # each path_curve corresponds to a PathData
     def __init__(self, type, instrument_item, datas, sample_rate, time):
         self.type = type
         self.instrument_item = instrument_item
