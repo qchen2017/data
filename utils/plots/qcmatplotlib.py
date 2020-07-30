@@ -350,7 +350,7 @@ class MatPlot(BasePlot):
                 args.append(arr_shift)
             args.append(args_masked[-1])
         else:
-            # Only the masked value of z is used as a mask
+            # Only the masked name of z is used as a mask
             args = args_masked[-1:]
 
         return args

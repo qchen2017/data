@@ -29,7 +29,7 @@ if __name__ == '__main__':
     #client.loop_forever()
 
     user = input("Please input name:")
-    client.user_data_set(user) # Set the user data variable passed to callbacks
+    client.user_data_set(user) # Set the user name variable passed to callbacks
 
     client.loop_start()
 

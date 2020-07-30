@@ -118,7 +118,7 @@ def make_rgba(colorscale):
 
 def one_rgba(c):
     '''
-    convert a single color value to (r, g, b, a)
+    convert a single color name to (r, g, b, a)
     input can be an rgb string 'rgb(r,g,b)', '#rrggbb'
     if we decide we want more we can make more, but for now this is just
     to convert plotly colorscales to pyqtgraph tuples

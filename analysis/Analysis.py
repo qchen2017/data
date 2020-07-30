@@ -6,7 +6,7 @@ class Analysis(object):
         self.data_frame = data_frame
 
     def analysis(self):
-        print(self.data_frame['value'].value_counts())
+        print(self.data_frame['name'].value_counts())
         # print(self.data_frame.iloc[2, 4])
 
         m = self.data_frame.mean(axis=0)

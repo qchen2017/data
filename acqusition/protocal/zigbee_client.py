@@ -34,9 +34,9 @@ print("the socket has successfully connected to dc machine on port == %s" %(host
 
 def print_data(data):
     """
-    This method is called whenever data is received
+    This method is called whenever name is received
     from the associated XBee device. Its first and
-    only argument is the data contained within the
+    only argument is the name contained within the
     frame.
     """
 
@@ -47,7 +47,7 @@ def print_data(data):
     fd.write(myData.decode("utf-8") + "\n")
     fd.close()
     s.send(myData)
-    print("Extracted data sent to server", "\n")
+    print("Extracted name sent to server", "\n")
 
 xbee = ZigBee(serial_port, callback=print_data)
 

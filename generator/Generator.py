@@ -11,7 +11,7 @@ class Generator(object):
         self.data['type'] = type
         self.data['item'] = item
         self.data['time'] = time
-        self.data['value'] = None
+        self.data['name'] = None
 
     def encode(self):
         pass

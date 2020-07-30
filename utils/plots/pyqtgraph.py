@@ -565,7 +565,7 @@ class QtPlot(BasePlot):
                          array parameters. However it has no knowledge of the
                          ranges or regular parameters. You can explicitly pass
                          in the values here as a dict of the form
-                         {'paramtername': {max: value, min:value}}
+                         {'paramtername': {max: name, min:name}}
         """
         axismapping = {'x': 'bottom',
                        'y': 'left'}
@@ -588,7 +588,7 @@ class QtPlot(BasePlot):
                         ax.enableAutoSIPrefix(False)
                         # because updateAutoSIPrefix called from
                         # enableAutoSIPrefix doesnt actually take the
-                        # value of the argument into account we have
+                        # name of the argument into account we have
                         # to manually replicate the update here
                         ax.autoSIPrefixScale = 1.0
                         ax.setLabel(unitPrefix='')

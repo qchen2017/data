@@ -15,7 +15,7 @@ class Query(object):
 
         # 方式二: pandas，需要写query，好处是直接可以用pandas算法
         conn = sqlite3.connect('test2.db')
-        query = 'SELECT value FROM Temperature WHERE value > 20;'
+        query = 'SELECT name FROM Temperature WHERE name > 20;'
         self.data_frame = pd.read_sql_query(query, conn) #方式二:
 
         # print(self.data_frame)

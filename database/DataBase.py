@@ -24,7 +24,7 @@ class DataBase(object):
                             Column('type', String),
                             Column('item', String),
                             Column('time', String),
-                            Column('value', Float)
+                            Column('name', Float)
                             )
         metadata.create_all(self.engine)
 

@@ -20,7 +20,7 @@ class Storage(object):
 
         t_list = []
         for data in self.station.datas:
-            t_list.append(Temperature(data['type'], data['item'], data['time'], data['value']))
+            t_list.append(Temperature(data['type'], data['item'], data['time'], data['name']))
 
         session.add_all(t_list)
         session.commit()
