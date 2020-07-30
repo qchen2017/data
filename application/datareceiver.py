@@ -4,11 +4,13 @@ import threading
 import operator
 
 class DataPack(object):
-    def __init__(self, name, age, description='统计居民'):
+    def __init__(self, name='', age=None,  weight=None, description='统计居民'):
         self.name = name
         self.age = age
+        self.weight = weight
         self.description = description
-        print('DataPack:',description)
+        # print('DataPack:',description)
+
 
 class DataReceiver(object):
   def __init__(self):
@@ -16,11 +18,11 @@ class DataReceiver(object):
       self.receive_data()
 
   def receive_data(self):
-      self.add_to_queue(DataPack("Thor", 10))
-      self.add_to_queue(DataPack("Iron man", 20))
-      self.add_to_queue(DataPack("Hulk", 16))
-      self.add_to_queue(DataPack("Doctor Strange", 23))
-      self.add_to_queue(DataPack("Vision", 17))
+      self.add_to_queue(DataPack("Thor", 10, 60))
+      self.add_to_queue(DataPack("Iron man", 20, 130))
+      self.add_to_queue(DataPack("Hulk", 16, 100))
+      self.add_to_queue(DataPack("Doctor Strange", 23, 140))
+      self.add_to_queue(DataPack("Vision", 17, 110))
 
   def add_to_queue(self, data_pack):
       if data_pack not in self.queue:

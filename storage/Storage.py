@@ -41,9 +41,9 @@ if 1 == 11:
         'create table catalog (id integer primary key,pid integer,type varchar(10) UNIQUE)')  # 上面语句创建了一个叫catalog的表，它有一个主键id，一个pid，和一个name，name是不可以重复的。
 
     # 插入数据:
-    cu.execute("insert into catalog values(0, 0, 'name1')")
+    cu.execute("insert into catalog array(0, 0, 'name1')")
     cu.execute(
-        "insert into catalog values(1, 0, 'hello')")  # 简单的插入两行数据,不过需要提醒的是,只有提交了之后,才能生效.我们使用数据库连接对象cx来进行提交commit和回滚rollback操作.
+        "insert into catalog array(1, 0, 'hello')")  # 简单的插入两行数据,不过需要提醒的是,只有提交了之后,才能生效.我们使用数据库连接对象cx来进行提交commit和回滚rollback操作.
     cx.commit()
 
     # 查询:

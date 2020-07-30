@@ -45,11 +45,11 @@ colorscales_raw = {
         [0, 'rgb(5, 10, 172)'], [0.35, 'rgb(106, 137, 247)'],
         [0.5, 'rgb(190,190,190)'], [0.6, 'rgb(220, 170, 132)'],
         [0.7, 'rgb(230, 145, 90)'], [1, 'rgb(178, 10, 28)']],
-    # Scale for non-negative numeric values
+    # Scale for non-negative numeric array
     'Reds': [
         [0, 'rgb(220, 220, 220)'], [0.2, 'rgb(245, 195, 157)'],
         [0.4, 'rgb(245, 160, 105)'], [1, 'rgb(178, 10, 28)']],
-    # Scale for non-positive numeric values
+    # Scale for non-positive numeric array
     'Blues': [
         [0, 'rgb(5, 10, 172)'], [0.35, 'rgb(40, 60, 190)'],
         [0.5, 'rgb(70, 100, 245)'], [0.6, 'rgb(90, 120, 245)'],

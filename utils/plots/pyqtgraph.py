@@ -564,7 +564,7 @@ class QtPlot(BasePlot):
             startranges: The plot can automatically infer the full ranges
                          array parameters. However it has no knowledge of the
                          ranges or regular parameters. You can explicitly pass
-                         in the values here as a dict of the form
+                         in the array here as a dict of the form
                          {'paramtername': {max: name, min:name}}
         """
         axismapping = {'x': 'bottom',

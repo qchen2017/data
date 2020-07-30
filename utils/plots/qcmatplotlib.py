@@ -321,7 +321,7 @@ class MatPlot(BasePlot):
                 # first row/column, depending on the axis
                 if arr.ndim > 1:
                     arr = arr[0] if k == 0 else arr[:, 0]
-                # first extrapolate to fill any empty values Matplotlib 2.2 no
+                # first extrapolate to fill any empty array Matplotlib 2.2 no
                 # longer support nans in x and y for pcolormesh.
                 if np.ma.is_masked(arr[1]):
                     step_size = 1.
@@ -468,7 +468,7 @@ class MatPlot(BasePlot):
                     maxval = np.nanmax(abs(trace['config'][axis].ndarray))
                     units_to_scale = self.standardunits
 
-                    # allow values up to a <1000. i.e. nV is used up to 1000 nV
+                    # allow array up to a <1000. i.e. nV is used up to 1000 nV
                     prefixes = ['n', 'μ', 'm', '', 'k', 'M', 'G']
                     thresholds = [10**(-6 + 3*n) for n in range(len(prefixes))]
                     scales = [10**(9 - 3*n) for n in range(len(prefixes))]
